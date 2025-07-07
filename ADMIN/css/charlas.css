@@ -1,0 +1,557 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f9fa;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Header/Navbar */
+.header {
+  background-color: white;
+  padding: 0 0px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+}
+
+/* Logo Styles */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-psicovinculo {
+  height: 80px;
+  /* Adjust as needed for your logo */
+  width: auto;
+}
+
+.logo span {
+  font-weight: bold;
+  color: #6a4c93;
+  /* A purple tone from the image */
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+/* Centered Navigation */
+.nav-centrado {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-centrado a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.nav-centrado a:hover {
+  color: #6a4c93;
+}
+
+.nav-centrado a:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #6a4c93;
+  bottom: 0;
+  left: 0;
+  transition: width 0.3s;
+}
+
+.nav-centrado a:hover:after {
+  width: 100%;
+}
+
+/* Profile Icon */
+.perfil {
+  display: flex;
+  align-items: center;
+}
+
+.icono-perfil {
+  width: 60px;
+  /* Adjust size as needed */
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #E5E7EB;
+  /* Light border */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icono-perfil:hover {
+  transform: scale(1.1);
+  border-color: #8B5CF6;
+  /* A more vibrant purple on hover */
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 40px auto 20px auto;
+  flex-wrap: wrap;
+  max-width: 900px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"] {
+  /* Added date input for charlas.php */
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="date"]:focus {
+  /* Added date input for charlas.php */
+  border-color: #6a4c93;
+  box-shadow: 0 0 0 3px rgba(106, 76, 147, 0.2);
+  outline: none;
+}
+
+form button {
+  padding: 12px 25px;
+  background-color: #6a4c93;
+  /* Purple for consistency */
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: 600;
+}
+
+form button:hover {
+  background-color: #5a3e7b;
+  transform: translateY(-2px);
+}
+
+/* Filters (specific to charlas.php but uses form-like styling) */
+.filtros {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  /* Esto ya lo centra horizontalmente si hay espacio */
+  align-items: center;
+  margin: 40px auto 20px auto;
+  /* 'auto' en los márgenes laterales centra el bloque */
+  flex-wrap: wrap;
+  max-width: 900px;
+  /* Asegura que no sea más ancho que el contenido principal y permite el centrado */
+  padding: 25px 30px;
+  /* Un poco más de padding para que se vea más espacioso */
+  background-color: white;
+  /* Cambiado a blanco para que coincida con el estilo de 'form' */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  /* Sombra sutil */
+  border: 1px solid #e0e0e0;
+  /* Un borde sutil para definir el área */
+}
+
+.filtros label {
+  font-weight: 600;
+  /* Un poco más de peso a la fuente */
+  color: #333;
+  /* Cambiado a un gris oscuro para mayor legibilidad y consistencia */
+  display: flex;
+  /* Para alinear el texto "Desde:" y el input */
+  align-items: center;
+  gap: 8px;
+  /* Espacio entre el texto del label y el input */
+  font-size: 1.05rem;
+  /* Ligeramente más grande */
+}
+
+/* Estilo para los campos de fecha dentro de .filtros */
+.filtros input[type="date"] {
+  flex: none;
+  /* Evita que crezcan excesivamente */
+  width: 160px;
+  /* Ancho fijo para los campos de fecha */
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  /* Borde más suave */
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  -webkit-appearance: none;
+  /* Elimina estilos por defecto del navegador en Chrome/Safari */
+  -moz-appearance: none;
+  /* Elimina estilos por defecto del navegador en Firefox */
+  appearance: none;
+  background-color: #fcfcfc;
+  /* Fondo ligeramente diferente para los inputs */
+  cursor: pointer;
+}
+
+.filtros input[type="date"]:focus {
+  border-color: #6a4c93;
+  box-shadow: 0 0 0 3px rgba(106, 76, 147, 0.2);
+  outline: none;
+}
+
+/* Estilo para los botones dentro de .filtros */
+.filtros button {
+  padding: 10px 22px;
+  /* Ajustado el padding para botones */
+  background-color: #6a4c93;
+  /* Tu morado principal */
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  font-weight: 600;
+  text-transform: uppercase;
+  /* Para que los textos de los botones sean en mayúsculas */
+  letter-spacing: 0.5px;
+  /* Espaciado entre letras */
+}
+
+.filtros button:hover {
+  background-color: #5a3e7b;
+  /* Un morado un poco más oscuro al pasar el mouse */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /* Sombra al pasar el mouse */
+}
+
+.filtros button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Table Styles */
+table {
+  width: 90%;
+  margin: 30px auto;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #6a4c93;
+  color: white;
+}
+
+th,
+td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1eef6;
+  /* Light purple on hover */
+}
+
+button.editar,
+button.eliminar {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+button.editar {
+  background-color: #ffc107;
+  /* Yellow */
+  color: #333;
+}
+
+button.editar:hover {
+  background-color: #e0a800;
+  transform: translateY(-1px);
+}
+
+button.eliminar {
+  background-color: #dc3545;
+  /* Red */
+  color: white;
+}
+
+button.eliminar:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+/* Footer */
+.footer {
+  background-color: #694c93d3;
+  /* Darker purple from the image */
+  color: white;
+  padding: 40px 0 20px;
+  margin-top: 50px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  /* Adjusted for better responsiveness */
+  gap: 30px;
+}
+
+.footer-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: white;
+  position: relative;
+  padding-bottom: 10px;
+  font-weight: 700;
+  /* Bolder font */
+  letter-spacing: 0.5px;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  /* Slightly wider underline */
+  height: 3px;
+  /* Thicker underline */
+  background-color: rgba(255, 255, 255, 0.4);
+  /* Lighter and more visible */
+}
+
+.footer-section p,
+.footer-section li {
+  color: #e0e0e0;
+  /* Softer white for text */
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.footer-section a {
+  color: #e0e0e0;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.footer-section i {
+  margin-right: 12px;
+  /* Increased spacing */
+  width: 20px;
+  text-align: center;
+  font-size: 1rem;
+  /* Slightly larger icons */
+  color: #f0f0f0;
+  /* Match text color */
+}
+
+.services-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.services-list li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.services-list li::before {
+  content: '\2022';
+  /* Unicode for bullet point */
+  color: #f0f0f0;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  /* More space below icons */
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  /* Larger icons */
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  /* Slightly more opaque background */
+  transition: all 0.3s ease;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  /* Larger icon size */
+}
+
+.social-icon:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  /* More opaque on hover */
+  transform: translateY(-5px) scale(1.1);
+  /* More pronounced lift and slight scale */
+}
+
+.footer-link {
+  margin-top: 20px;
+}
+
+.footer-link a {
+  color: #f0f0f0;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  border-bottom: 1px dashed #f0f0f0;
+  /* Dashed underline for a subtle effect */
+  padding-bottom: 2px;
+}
+
+.footer-link a:hover {
+  border-bottom-style: solid;
+  /* Solid underline on hover */
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 25px;
+  margin-top: 40px;
+  /* More space above copyright */
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  /* Slightly stronger border */
+  color: #bdbdbd;
+  /* Lighter grey for copyright */
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-centrado {
+    margin-top: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-section h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .footer-section p,
+  .footer-section li {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .logo span {
+    font-size: 1.1rem;
+  }
+
+  .nav-centrado a {
+    font-size: 0.95rem;
+  }
+
+  form,
+  .filtros {
+    /* Apply to both form and filters */
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  form input,
+  form button,
+  .filtros input,
+  /* Apply to filter inputs */
+  .filtros button {
+    /* Apply to filter buttons */
+    width: 100%;
+    min-width: unset;
+  }
+}

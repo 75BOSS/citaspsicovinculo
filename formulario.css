@@ -1,0 +1,99 @@
+/* ======= Estilo General ======= */
+
+
+/* ======= Solo para login y registro ======= */
+body.form-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e6e6e6;
+}
+
+
+.form-container {
+    background-color: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 12px 0;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-container input:focus {
+    border-color: #5b9bd5;
+    box-shadow: 0 0 8px rgba(91, 155, 213, 0.6);
+    outline: none;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 14px;
+    background-color: #5b9bd5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.form-container button:hover {
+    background-color: #417cb8;
+}
+
+/* Enlace para crear cuenta o ir a login */
+.form-container .link {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+}
+
+.form-container .link a {
+    color: #5b9bd5;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-container .link a:hover {
+    text-decoration: underline;
+}
+
+/* Animaciones modernas */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.form-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Responsive Design para pantallas pequeñas */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 1.5rem 2rem;
+        width: 90%;
+    }
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psivinculo - Servicios Psicológicos</title>
+  <link rel="stylesheet" href="css/contacto.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html" class="logo-link">
+          <img src="imagen/logo.png" class="logo-psicovinculo" alt="Psicovínculo">
+        </a>
+        <span>Psicovínculo</span>
+      </div>
+      <ul class="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="test.html">Tests</a></li>
+        <li> <a href="servicios.html">Servicios</a></li>
+        <li><a href="eventos.html">Eventos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a class="btn-outline btn" href="login.html">Reservar Cita</a>
+        <a class="btn-primary btn" href="login.html">Iniciar Sesión</a>
+      </div>
+    </nav>
+  </header>
+  <!-- Contact Section -->
+  <section class="contact-section" id="contacto">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Contáctanos</h2>
+        <p class="section-subtitle">Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto
+          contigo.</p>
+      </div>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-content">
+              <h3>Ubicación</h3>
+              <p>Campus el Girón, Ave 12 de Octubre 24-22, Quito</p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="info-content">
+              <h3>Teléfono</h3>
+              <p>+593 960951729</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="info-content">
+              <h3>Email</h3>
+              <p>Email: Fabian.carsola@ups.edu.ec</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="info-content">
+              <h3>Horario de atención</h3>
+              <p>Lunes a Viernes: 9:00 - 18:00</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form action="#" class="modern-form" method="post">
+            <div class="form-row">
+              <div class="form-group">
+                <input id="nombre" name="nombre" placeholder=" " required type="text" />
+                <label for="nombre">Tu nombre</label>
+              </div>
+              <div class="form-group">
+                <input id="email" name="email" placeholder=" " required type="email" />
+                <label for="email">Tu email</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input id="telefono" name="telefono" placeholder=" " type="tel" />
+              <label for="telefono">Tu teléfono (opcional)</label>
+            </div>
+
+            <div class="form-group select-wrapper">
+              <select id="asunto" name="asunto" required>
+                <option disabled selected value=""></option>
+                <option value="consulta">Consulta general</option>
+                <option value="cita">Solicitar cita</option>
+                <option value="evento">Información sobre eventos</option>
+                <option value="otro">Otro</option>
+              </select>
+              <label for="asunto">Selecciona un asunto</label>
+            </div>
+
+            <div class="form-group">
+              <textarea id="mensaje" name="mensaje" placeholder=" " required></textarea>
+              <label for="mensaje">Tu mensaje</label>
+            </div>
+            <button class="btn btn-primary btn-submit" type="submit">
+              <span>Enviar mensaje</span>
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>INFORMACIÓN</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Av. Isabel La Católica N. 23-52 y Madrid.</p>
+            <p><i class="fas fa-phone"></i> <a href="tel:0960951729">0960951729</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:fabian.carsoia@ups.edu.co">fabian.carsoia@ups.edu.co</a></p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>ATENCIÓN</h3>
+            <p><i class="far fa-clock"></i> LUNES A VIERNES</p>
+            <p>9:00 AM - 17:00 PM</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>NUESTROS SERVICIOS</h3>
+            <ul class="services-list">
+                <li>Tratamientos de Ansiedad</li>
+                <li>Terapia para Depresión</li>
+                <li>Manejo del Estrés</li>
+                <li>Terapia para Crisis de Pánico</li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h3>REDES SOCIALES</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            </div>
+            <div class="footer-link">
+                <a href="servicios.html" target="_blank">
+                    Más información sobre nuestros servicios
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2025 Psicovínculo. Todos los derechos reservados.</p>
+    </div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/593960951729" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+    </a>
+</footer>
+</body>
+
+</html>

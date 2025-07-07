@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f5fb;
+  color: #333;
+}
+
+
+main {
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  margin-top: 40px;
+}
+
+.formulario-edicion form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-edicion label {
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #6b3fa0;
+}
+
+.formulario-edicion input[type="text"],
+.formulario-edicion input[type="email"],
+.formulario-edicion input[type="url"] {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.formulario-edicion button {
+  margin-top: 25px;
+  padding: 12px;
+  background-color: #6b3fa0;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.formulario-edicion button:hover {
+  background-color: #4f2f78;
+}

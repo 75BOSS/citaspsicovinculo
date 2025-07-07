@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - Psicovínculo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+</head>
+
+<body>
+    <!-- Barra de navegación -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="imagen/logo.png" class="logo-img" alt="Psicovínculo">
+                </a>
+                <span>Psicovínculo</span>
+            </div>
+            <ul class="menu">
+                <a href="index.html">Inicio</a>
+                <li><a href="#">Tests</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Eventos</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn-outline btn">Iniciar Sesión</a>
+                <a href="registro.html" class="btn-primary btn">Registrarse</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenedor de login -->
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="imagen/logo.png" alt="Psicovínculo">
+            <h1>Registro</h1>
+            <p class="switch-text">¿No tienes cuenta? <a href="login.html">Iniciar Sesion</a></p>
+        </div>
+
+        <!-- Selector de tipo de usuario -->
+        <div class="user-type-selector">
+            <div class="user-type active" data-type="paciente">Paciente</div>
+            <div class="user-type" data-type="psicologo">Psicólogo</div>
+        </div>
+
+        <form id="loginForm" action="procesar-login.php" method="post">
+            <!-- Campo oculto para tipo de usuario -->
+            <input type="hidden" name="user_type" id="userType" value="paciente">
+
+            <div class="form-group">
+                <input type="nombre_completo" id="nombre_completo" name="nombre_completo" placeholder="Nombre Completo"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+            </div>
+
+            <div class="form-group">
+                <input type="telefono" id="telefono" name="telefono" placeholder="telefono" required>
+            </div>
+
+
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            </div>
+
+             <!-- Botón secundario -->
+             <a href="login.html" class="btn btn-login">Crear cuenta</a>
+
+
+        
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>© 2023 Psicovínculo. Todos los derechos reservados. <a href="#">Términos y condiciones</a> | <a
+                href="#">Política de privacidad</a></p>
+    </footer>
+
+    <script>
+        // Manejar selección de tipo de usuario
+        document.querySelectorAll('.user-type').forEach(type => {
+            type.addEventListener('click', function () {
+                // Remover clase active de todos
+                document.querySelectorAll('.user-type').forEach(t => {
+                    t.classList.remove('active');
+                });
+
+                // Agregar clase active al seleccionado
+                this.classList.add('active');
+
+                // Actualizar campo oculto
+                document.getElementById('userType').value = this.dataset.type;
+
+                // Cambiar texto del botón según tipo de usuario
+                const btnLogin = document.querySelector('.btn-login');
+                if (this.dataset.type === 'psicologo') {
+                    btnLogin.textContent = 'Ingresar como Psicólogo';
+                } else {
+                    btnLogin.textContent = 'Ingresar';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

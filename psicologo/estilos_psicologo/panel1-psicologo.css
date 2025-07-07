@@ -1,0 +1,130 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #f8f6fc;
+  color: #333;
+}
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+form select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+form label {
+  display: block;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #4b2e83;
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="time"],
+form input[type="number"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tags-container label {
+  background: #eee;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.tags-container input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+button[type="submit"] {
+  margin-top: 30px;
+  background-color: #6b3fa0;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #502c7e;
+}
+
+.botones-acciones {
+  margin-top: 20px;
+}
+
+.boton-editar, .boton-cancelar {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.boton-editar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.boton-cancelar {
+  background-color: #e53935;
+  color: white;
+}
+
+.alert {
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+  text-align: center;
+}
+
+.alert.success {
+  background-color: #e6f9ec;
+  color: #2e7d32;
+  border: 2px solid #81c784;
+}
+
+.alert.error {
+  background-color: #fdecea;
+  color: #c62828;
+  border: 2px solid #e57373;
+}
+

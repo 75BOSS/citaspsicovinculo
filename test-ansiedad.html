@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Ansiedad | Psicovínculo</title>
+    <link rel="stylesheet" href="css/test-ansiedad.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link">
+                    <img src="imagen/logo.png" class="logo-psicovinculo" alt="Psicovínculo">
+                </a>
+                <span class="logo-text">Psicovínculo</span>
+            </div>
+            
+            <div class="nav-wrapper">
+                <nav class="main-nav">
+                    <ul class="nav-menu">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="test.html" class="active">Tests</a></li>
+                        <li><a href="servicios.html">Servicios</a></li>
+                        <li><a href="eventos.html">Eventos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">Reservar Citas</a>
+                    <a href="registro.html" class="btn btn-primary">Iniciar Sesión</a>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="test-container">
+        <section class="test-header">
+            <h1>Test de Ansiedad</h1>
+            <p class="test-description">Durante las últimas 2 semanas, ¿con qué frecuencia te han molestado los siguientes problemas?</p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <span class="progress-text" id="progressText">1/10</span>
+            </div>
+        </section>
+
+        <form id="ansiedadTestForm">
+            <!-- Pregunta 1 -->
+            <div id="q1" class="question active">
+                <h3>1. Sentirse nervioso/a, ansioso/a o con los nervios de punta</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q1" value="0" id="q1-option1">
+                        <label for="q1-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q1" value="1" id="q1-option2">
+                        <label for="q1-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q1" value="2" id="q1-option3">
+                        <label for="q1-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q1" value="3" id="q1-option4">
+                        <label for="q1-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div id="q2" class="question">
+                <h3>2. No poder dejar de preocuparse o controlar la preocupación</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q2" value="0" id="q2-option1">
+                        <label for="q2-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q2" value="1" id="q2-option2">
+                        <label for="q2-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q2" value="2" id="q2-option3">
+                        <label for="q2-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q2" value="3" id="q2-option4">
+                        <label for="q2-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div id="q3" class="question">
+                <h3>3. Preocuparse demasiado por diferentes cosas</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q3" value="0" id="q3-option1">
+                        <label for="q3-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q3" value="1" id="q3-option2">
+                        <label for="q3-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q3" value="2" id="q3-option3">
+                        <label for="q3-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q3" value="3" id="q3-option4">
+                        <label for="q3-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div id="q4" class="question">
+                <h3>4. Dificultad para relajarse</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q4" value="0" id="q4-option1">
+                        <label for="q4-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q4" value="1" id="q4-option2">
+                        <label for="q4-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q4" value="2" id="q4-option3">
+                        <label for="q4-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q4" value="3" id="q4-option4">
+                        <label for="q4-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div id="q5" class="question">
+                <h3>5. Estar tan inquieto/a que resulta difícil quedarse quieto/a</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q5" value="0" id="q5-option1">
+                        <label for="q5-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q5" value="1" id="q5-option2">
+                        <label for="q5-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q5" value="2" id="q5-option3">
+                        <label for="q5-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q5" value="3" id="q5-option4">
+                        <label for="q5-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 6 -->
+            <div id="q6" class="question">
+                <h3>6. Molestarse o irritarse con facilidad</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q6" value="0" id="q6-option1">
+                        <label for="q6-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q6" value="1" id="q6-option2">
+                        <label for="q6-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q6" value="2" id="q6-option3">
+                        <label for="q6-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q6" value="3" id="q6-option4">
+                        <label for="q6-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div id="q7" class="question">
+                <h3>7. Sentir miedo como si algo terrible fuera a suceder</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q7" value="0" id="q7-option1">
+                        <label for="q7-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q7" value="1" id="q7-option2">
+                        <label for="q7-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q7" value="2" id="q7-option3">
+                        <label for="q7-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q7" value="3" id="q7-option4">
+                        <label for="q7-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div id="q8" class="question">
+                <h3>8. Experimentar palpitaciones o taquicardia sin razón aparente</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q8" value="0" id="q8-option1">
+                        <label for="q8-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q8" value="1" id="q8-option2">
+                        <label for="q8-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q8" value="2" id="q8-option3">
+                        <label for="q8-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q8" value="3" id="q8-option4">
+                        <label for="q8-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 9 -->
+            <div id="q9" class="question">
+                <h3>9. Tener dificultad para respirar o sensación de ahogo sin causa física</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q9" value="0" id="q9-option1">
+                        <label for="q9-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q9" value="1" id="q9-option2">
+                        <label for="q9-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q9" value="2" id="q9-option3">
+                        <label for="q9-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q9" value="3" id="q9-option4">
+                        <label for="q9-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pregunta 10 -->
+            <div id="q10" class="question">
+                <h3>10. Evitar situaciones por miedo a sentir ansiedad</h3>
+                <ul class="question-options">
+                    <li class="option-item">
+                        <input type="radio" name="q10" value="0" id="q10-option1">
+                        <label for="q10-option1" class="option-label">
+                            <span class="option-text">Nunca</span>
+                            <span class="option-points">0 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q10" value="1" id="q10-option2">
+                        <label for="q10-option2" class="option-label">
+                            <span class="option-text">Varios días</span>
+                            <span class="option-points">1 punto</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q10" value="2" id="q10-option3">
+                        <label for="q10-option3" class="option-label">
+                            <span class="option-text">Más de la mitad</span>
+                            <span class="option-points">2 puntos</span>
+                        </label>
+                    </li>
+                    <li class="option-item">
+                        <input type="radio" name="q10" value="3" id="q10-option4">
+                        <label for="q10-option4" class="option-label">
+                            <span class="option-text">Casi todos los días</span>
+                            <span class="option-points">3 puntos</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="test-navigation">
+                <button type="button" class="btn btn-outline" id="prevBtn" disabled>
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button type="button" class="btn btn-primary" id="nextBtn">
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="button" class="btn btn-primary" id="submitBtn" style="display: none;">
+                    Ver Resultados
+                </button>
+            </div>
+        </form>
+
+        <!-- Result Section -->
+        <section id="ansiedad-result" class="result-container" style="display: none;">
+            <div class="result-card">
+                <h2>Resultado del Test de Ansiedad</h2>
+                <div class="score-display">
+                    <span class="score-label">Puntaje total:</span>
+                    <span class="score-value" id="ansiedad-score">0</span>
+                    <span class="score-max">/30</span>
+                </div>
+                
+                <div class="result-message" id="ansiedad-interpretation">
+                    <!-- Result text will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="result-recommendation">
+                    <h3>Recomendaciones:</h3>
+                    <ul class="recommendation-list" id="recommendation-list">
+                        <!-- Recommendations will be inserted here by JavaScript -->
+                    </ul>
+                </div>
+                
+                <div class="result-disclaimer">
+                    <p><strong>Nota importante:</strong> Este test no sustituye una evaluación profesional. Si tienes preocupaciones sobre tu ansiedad, considera consultar con un profesional de la salud mental.</p>
+                    <p><strong>Si experimentas ataques de pánico:</strong> Busca ayuda de un especialista. La ansiedad es tratable con el enfoque adecuado.</p>
+                </div>
+                
+                <div class="result-actions">
+                    <a href="servicios.html" class="btn btn-primary">
+                        <i class="fas fa-calendar-alt"></i> Agendar Consulta
+                    </a>
+                    <button type="button" class="btn btn-outline" id="retakeTestBtn">
+                        <i class="fas fa-redo"></i> Volver a hacer el test
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>INFORMACIÓN</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Isabel La Católica N. 23-52 y Madrid.</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:0960951729">0960951729</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:fabian.carsoia@ups.edu.co">fabian.carsoia@ups.edu.co</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>ATENCIÓN</h3>
+                <p><i class="far fa-clock"></i> LUNES A VIERNES</p>
+                <p>9:00 AM - 17:00 PM</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>NUESTROS SERVICIOS</h3>
+                <ul class="services-list">
+                    <li>Tratamientos de Ansiedad</li>
+                    <li>Terapia para Depresión</li>
+                    <li>Manejo del Estrés</li>
+                    <li>Terapia para Crisis de Pánico</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>REDES SOCIALES</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="footer-link">
+                    <a href="https://www.deservicios.es/plos/muestras-redes-sociales-deservicios-totamacion" target="_blank">
+                        Más información sobre nuestros servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Psicovínculo. Todos los derechos reservados.</p>
+        </div>
+
+        <!-- Botón flotante de WhatsApp -->
+        <a href="https://wa.me/593960951729" class="whatsapp-float" target="_blank">
+            <i class="fab fa-whatsapp whatsapp-icon"></i>
+        </a>
+    </footer>
+
+    <script src="js/test-ansiedad.js"></script>
+</body>
+</html>

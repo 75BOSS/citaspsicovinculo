@@ -1,0 +1,125 @@
+/* Reset básico */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f3fa;
+  color: #333;
+}
+
+
+/* MAIN CONTENT */
+main {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* TARJETA DE PRESENTACIÓN */
+.tarjeta {
+  background-color: rgb(213, 197, 231);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+  color: #6b3fa0;
+  font-size: 1.5rem;
+}
+
+.foto-perfil-grande {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 20px auto;
+  border: 5px solid #a48ccf;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* FORMULARIO DE EDICIÓN */
+.formulario-edicion {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.formulario-edicion h3 {
+  color: #6b3fa0;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form label {
+  font-weight: bold;
+  color: #4a2f6b;
+}
+
+form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+form button {
+  margin-top: 15px;
+  background-color: #6b3fa0;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #563285;
+}
+
+.boton-editar {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #6b3fa0;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+}
+
+.boton-editar:hover {
+  background-color: #563285;
+}
+
+
+.boton-charlas {
+  display: inline-block;
+  background-color: #5a2d82;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.boton-charlas:hover {
+  background-color: #3e1e5a;
+}
