@@ -7,6 +7,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'paciente') {
   exit;
 }
 
+// Consulta de charlas
 $sql = "
   SELECT 
     c.id, c.titulo, c.fecha, c.hora_inicio, a.nombre AS auditorio,
@@ -16,7 +17,7 @@ $sql = "
   JOIN usuarios u ON c.id_psicologo = u.id
   ORDER BY c.fecha ASC
 ";
-$charlas = $conn->query($sql); // corregido aquí
+$charlas = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,6 +37,19 @@ $charlas = $conn->query($sql); // corregido aquí
     .tarjeta p { margin: 5px 0; }
     .etiquetas { margin-top: 10px; }
     .etiqueta { display: inline-block; background: #e0d7f5; color: #6b3fa0; padding: 4px 8px; margin: 3px; border-radius: 8px; font-size: 13px; }
+    .tarjeta form { margin-top: 15px; }
+    .tarjeta button {
+      padding: 8px 15px;
+      background-color: #6b3fa0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .tarjeta button:hover {
+      background-color: #502d85;
+    }
   </style>
 </head>
 <body>
@@ -75,6 +89,12 @@ $charlas = $conn->query($sql); // corregido aquí
               <span class="etiqueta"><?= htmlspecialchars($etiqueta['nombre']) ?></span>
             <?php endwhile; ?>
           </div>
+
+          <!-- Botón Registrarme -->
+          <form action="registrarse_charla.php" method="GET">
+            <input type="hidden" name="id_charla" value="<?= $charla['id'] ?>">
+            <button type="submit">Registrarme</button>
+          </form>
         </div>
       <?php endwhile; ?>
     </div>
