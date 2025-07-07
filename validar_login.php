@@ -2,7 +2,7 @@
 session_start();
 require_once 'conexion.php';
 
-// Mostrar errores para depuración
+// Activar errores en pantalla
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 $correo = $_POST['correo'] ?? '';
 $pass = $_POST['pass'] ?? '';
 
-// Validar si existe el usuario
+// Verificar si el usuario existe
 $stmt = $conn->prepare("SELECT * FROM usuarios WHERE correo = ?");
 $stmt->bind_param("s", $correo);
 $stmt->execute();
@@ -22,7 +22,7 @@ if ($result->num_rows === 1) {
 
     if (password_verify($pass, $usuario['contraseña'])) {
         if ($usuario['rol'] === 'psicologo' && $usuario['activo'] == 0) {
-            echo "Tu cuenta aún no ha sido activada por el administrador.";
+            echo "Tu cuenta de psicólogo aún no ha sido activada por el administrador.";
             exit;
         }
 
@@ -31,7 +31,7 @@ if ($result->num_rows === 1) {
         $_SESSION['correo'] = $usuario['correo'];
         $_SESSION['rol'] = $usuario['rol'];
 
-        // Redireccionar según rol
+        // Redirigir por rol
         switch ($usuario['rol']) {
             case 'admin':
                 header("Location: ADMIN/index.php");
@@ -43,13 +43,13 @@ if ($result->num_rows === 1) {
                 header("Location: paciente/index_paciente.php");
                 break;
             default:
-                echo "Rol desconocido.";
+                echo "Rol no reconocido.";
         }
     } else {
         echo "Contraseña incorrecta.";
     }
 } else {
-    echo "Usuario no encontrado.";
+    echo "Correo no registrado.";
 }
 
 $stmt->close();
