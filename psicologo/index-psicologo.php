@@ -2,45 +2,43 @@
 session_start();
 include '../conexion.php';
 
+// Verificar sesión
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
+    echo "Acceso denegado.";
+    exit;
+}
 
-// Simulación temporal del login (para pruebas sin login real)
-
-
-// Simulación temporal del login (para pruebas sin login real)
-$_SESSION['usuario_id'] = 8; // ⚖️ Asegúrate de que este ID exista en la tabla usuarios
-$id_psicologo = $_SESSION['usuario_id']; // ✅ Ahora sí se asigna
-
+$id_psicologo = $_SESSION['id'];
 
 // Obtener datos del psicólogo
-$stmt = $conexion->prepare("SELECT nombre, correo, telefono FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT nombre, correo, telefono FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id_psicologo);
 $stmt->execute();
 $result = $stmt->get_result();
 $perfil = $result->fetch_assoc();
 
 // Total de charlas
-$total_result = $conexion->query("SELECT COUNT(*) as total FROM charlas WHERE id_psicologo = $id_psicologo");
+$total_result = $conn->query("SELECT COUNT(*) as total FROM charlas WHERE id_psicologo = $id_psicologo");
 $total_row = $total_result->fetch_assoc();
 $total = $total_row['total'] ?? 0;
 
 // Próxima charla
-$prox_result = $conexion->query("SELECT * FROM charlas WHERE id_psicologo = $id_psicologo AND fecha >= CURDATE() ORDER BY fecha ASC, hora_inicio ASC LIMIT 1");
+$prox_result = $conn->query("SELECT * FROM charlas WHERE id_psicologo = $id_psicologo AND fecha >= CURDATE() ORDER BY fecha ASC, hora_inicio ASC LIMIT 1");
 $prox_charla = $prox_result->fetch_assoc();
 
 // Próximas charlas
-$proximas_charlas = $conexion->query("SELECT * FROM charlas WHERE id_psicologo = $id_psicologo AND fecha >= CURDATE() ORDER BY fecha ASC LIMIT 5");
+$proximas_charlas = $conn->query("SELECT * FROM charlas WHERE id_psicologo = $id_psicologo AND fecha >= CURDATE() ORDER BY fecha ASC LIMIT 5");
 
-// Charlas por mes del año actual
+// Charlas por mes
 $charlas_por_mes = array_fill(1, 12, 0);
 $sql_mes = "SELECT MONTH(fecha) as mes, COUNT(*) as cantidad 
             FROM charlas 
             WHERE id_psicologo = $id_psicologo 
               AND YEAR(fecha) = YEAR(CURDATE())
             GROUP BY MONTH(fecha)";
-$result_mes = $conexion->query($sql_mes);
+$result_mes = $conn->query($sql_mes);
 while ($row = $result_mes->fetch_assoc()) {
-    $mes = (int)$row['mes'];
-    $charlas_por_mes[$mes] = (int)$row['cantidad'];
+    $charlas_por_mes[(int)$row['mes']] = (int)$row['cantidad'];
 }
 ?>
 
