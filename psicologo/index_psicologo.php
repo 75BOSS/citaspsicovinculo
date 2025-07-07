@@ -88,39 +88,39 @@ while ($row = $result_mes->fetch_assoc()) {
       <img src="imagen_psicologo/depresion-psicologo.jpg" alt="Depresión">
       <h4>DEPRESIÓN</h4>
       <p>Supera síntomas depresivos y recupera la alegría de vivir.</p>
-      <a href="generar-charla.php?tema=Depresión">Programar Charla</a>
+      <a href="generar_charla.php?tema=Depresión">Programar Charla</a>
     </div>
     <div class="tema-card">
       <img src="imagen_psicologo/icono_ansiedad-psicologo.jpg" alt="Ansiedad">
       <h4>ANSIEDAD</h4>
       <p>Maneja la ansiedad y el estrés con herramientas eficaces.</p>
-      <a href="generar-charla.php?tema=Ansiedad">Programar Charla</a>
+      <a href="generar_charla.php?tema=Ansiedad">Programar Charla</a>
     </div>
     <div class="tema-card">
       <img src="imagen_psicologo/icono_autoestima-psicologo.jpg" alt="Autoestima">
       <h4>PROBLEMAS DE AUTOESTIMA</h4>
       <p>Fortalece tu autoimagen y relación contigo mismo.</p>
-      <a href="generar-charla.php?tema=icono_autoestima">Programar Charla</a>
+      <a href="generar_charla.php?tema=icono_autoestima">Programar Charla</a>
     </div>
 <div class="tema-card">
   <img src="imagen_psicologo/icono_traumayabuso-psicologo.jpg" alt="Trauma y abuso">
   <h4>Trauma y Abuso</h4>
   <p>Aprende a reconocer, afrontar y sanar experiencias traumáticas y de abuso emocional o físico.</p>
-  <a href="generar-charla.php?tema=traumayabuso">Programar Charla</a>
+  <a href="generar_charla.php?tema=traumayabuso">Programar Charla</a>
 </div>
 
 <div class="tema-card">
   <img src="imagen_psicologo/icono_trastornoalimenticio-psicologo.jpg" alt="Trastorno alimenticio">
   <h4>Trastornos Alimenticios</h4>
   <p>Aborda la relación con la comida y el cuerpo desde un enfoque de salud mental y autocuidado.</p>
-  <a href="generar-charla.php?tema=trastornoalimenticio">Programar Charla</a>
+  <a href="generar_charla.php?tema=trastornoalimenticio">Programar Charla</a>
 </div>
 
 <div class="tema-card">
   <img src="imagen_psicologo/icono_adicciones-psicologo.jpg" alt="Adicciones">
   <h4>Adicciones</h4>
   <p>Comprende los mecanismos de la adicción y descubre estrategias efectivas para la prevención y recuperación.</p>
-  <a href="generar-charla.php?tema=adicciones">Programar Charla</a>
+  <a href="generar_charla.php?tema=adicciones">Programar Charla</a>
 </div>
 
   </div>
