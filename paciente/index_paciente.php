@@ -2,13 +2,11 @@
 session_start();
 include '../conexion.php';
 
-// Verificar si hay sesión activa
 if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'paciente') {
   echo "Acceso denegado.";
   exit;
 }
 
-// Obtener todas las charlas con nombre del psicólogo y auditorio
 $sql = "
   SELECT 
     c.id, c.titulo, c.fecha, c.hora_inicio, a.nombre AS auditorio,
@@ -18,7 +16,7 @@ $sql = "
   JOIN usuarios u ON c.id_psicologo = u.id
   ORDER BY c.fecha ASC
 ";
-$charlas = $conexion->query($sql);
+$charlas = $conn->query($sql); // corregido aquí
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,11 +62,10 @@ $charlas = $conexion->query($sql);
           <p><strong>Auditorio:</strong> <?= $charla['auditorio'] ?></p>
           <p><strong>Psicólogo:</strong> <?= $charla['psicologo'] ?></p>
 
-          <!-- Mostrar etiquetas relacionadas -->
           <div class="etiquetas">
             <?php
               $id_charla = $charla['id'];
-              $etiquetas = $conexion->query("
+              $etiquetas = $conn->query("
                 SELECT t.nombre FROM charla_tags ct
                 JOIN tags t ON ct.id_tag = t.id
                 WHERE ct.id_charla = $id_charla
