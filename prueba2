@@ -1,0 +1,132 @@
+<!-- panel_charlas.html actualizado -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Charlas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f8;
+      color: #333;
+    }
+    header {
+      background: white;
+      padding: 20px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    header img {
+      height: 40px;
+    }
+    header nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #6b3fa0;
+      font-weight: bold;
+    }
+    .contenedor {
+      padding: 50px 5%;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #6b3fa0;
+    }
+    .grid-charlas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+    }
+    .charla-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+    .charla-card:hover {
+      transform: translateY(-5px);
+    }
+    .charla-card h3 {
+      margin-top: 0;
+      color: #6b3fa0;
+    }
+    .charla-card p {
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="imagen/logo.png" alt="Logo Psicovínculo">
+      <span style="margin-left: 10px; font-size: 20px; font-weight: bold; color: #6b3fa0;">Psicovínculo</span>
+    </div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Tests</a>
+      <a href="#">Servicios</a>
+      <a href="#">Eventos</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="contenedor">
+    <h1>Charlas Disponibles</h1>
+    <div class="grid-charlas">
+      <div class="charla-card">
+        <h3>Ansiedad y Control</h3>
+        <p><strong>Fecha:</strong> 10/08/2025</p>
+        <p><strong>Auditorio:</strong> Aula Magna</p>
+        <p><strong>Psicólogo:</strong> Carla Mena</p>
+      </div>
+      <div class="charla-card">
+        <h3>Manejo del Estrés</h3>
+        <p><strong>Fecha:</strong> 12/08/2025</p>
+        <p><strong>Auditorio:</strong> Sala B</p>
+        <p><strong>Psicólogo:</strong> José Aguilar</p>
+      </div>
+      <div class="charla-card">
+        <h3>Depresión Juvenil</h3>
+        <p><strong>Fecha:</strong> 15/08/2025</p>
+        <p><strong>Auditorio:</strong> Auditorio 3</p>
+        <p><strong>Psicólogo:</strong> Diana Ruiz</p>
+      </div>
+      <div class="charla-card">
+        <h3>Autoestima Sana</h3>
+        <p><strong>Fecha:</strong> 18/08/2025</p>
+        <p><strong>Auditorio:</strong> Aula A</p>
+        <p><strong>Psicólogo:</strong> Marco Salazar</p>
+      </div>
+      <div class="charla-card">
+        <h3>Trastornos Alimenticios</h3>
+        <p><strong>Fecha:</strong> 20/08/2025</p>
+        <p><strong>Auditorio:</strong> Sala D</p>
+        <p><strong>Psicólogo:</strong> Valeria Castro</p>
+      </div>
+      <div class="charla-card">
+        <h3>Prevención del Suicidio</h3>
+        <p><strong>Fecha:</strong> 22/08/2025</p>
+        <p><strong>Auditorio:</strong> Centro Cultural</p>
+        <p><strong>Psicólogo:</strong> Fabián Lema</p>
+      </div>
+      <div class="charla-card">
+        <h3>Terapia de Pareja</h3>
+        <p><strong>Fecha:</strong> 25/08/2025</p>
+        <p><strong>Auditorio:</strong> Sala Azul</p>
+        <p><strong>Psicólogo:</strong> Lorena Estrella</p>
+      </div>
+      <div class="charla-card">
+        <h3>Inteligencia Emocional</h3>
+        <p><strong>Fecha:</strong> 28/08/2025</p>
+        <p><strong>Auditorio:</strong> Aula Norte</p>
+        <p><strong>Psicólogo:</strong> Pablo Zárate</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
