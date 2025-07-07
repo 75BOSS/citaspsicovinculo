@@ -11,6 +11,6 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Establecer codificación
+// Establecer el conjunto de caracteres
 $conn->set_charset("utf8mb4");
 ?>
