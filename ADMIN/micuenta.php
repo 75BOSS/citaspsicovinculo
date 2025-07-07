@@ -2,36 +2,39 @@
 include '../conexion.php';
 session_start();
 
+// Verifica si hay sesión activa
 if (!isset($_SESSION['id'])) {
   echo "No has iniciado sesión.";
   exit;
 }
-$id_empresa = $_SESSION['empresa_id'];
 
-// Si enviaron cambios
+$id_usuario = $_SESSION['id'];
+
+// Si se envió el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nuevo_nombre = trim($_POST['nombre'] ?? '');
 
   if ($nuevo_nombre !== '') {
-    $stmt = $conexion->prepare("UPDATE empresas SET nombre = ? WHERE id = ?");
-    $stmt->bind_param("si", $nuevo_nombre, $id_empresa);
+    $stmt = $conn->prepare("UPDATE usuarios SET nombre = ? WHERE id = ?");
+    $stmt->bind_param("si", $nuevo_nombre, $id_usuario);
     $stmt->execute();
     $stmt->close();
   }
 }
 
-// Obtener datos actualizados
-$stmt = $conexion->prepare("SELECT nombre, correo, logo, plan FROM empresas WHERE id = ?");
-$stmt->bind_param("i", $id_empresa);
+// Obtener datos del usuario
+$stmt = $conn->prepare("SELECT nombre, correo, rol FROM usuarios WHERE id = ?");
+$stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $res = $stmt->get_result();
-$empresa = $res->fetch_assoc();
+$usuario = $res->fetch_assoc();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Perfil</title>
+  <title>Mi Cuenta - Administrador</title>
   <link rel="stylesheet" href="css/mi_perfil.css">
 </head>
 <body>
@@ -39,25 +42,17 @@ $empresa = $res->fetch_assoc();
     <a href="index.php">
       <img src="imagen/logo.png" alt="Logo Psicovínculo" class="logo">
     </a>
-    <h1>Mi Perfil</h1>
+    <h1>Mi Cuenta</h1>
   </header>
 
   <main class="perfil">
-    <div class="logo-empresa">
-      <?php if ($empresa['logo']) : ?>
-        <img src="logos/<?php echo $empresa['logo']; ?>" alt="Logo de la empresa">
-      <?php else : ?>
-        <p>Sin logo cargado.</p>
-      <?php endif; ?>
-    </div>
-
     <form method="POST" class="formulario">
       <label>Nombre:
-        <input type="text" name="nombre" value="<?php echo htmlspecialchars($empresa['nombre']); ?>" required>
+        <input type="text" name="nombre" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" required>
       </label>
 
-      <p><strong>Correo:</strong> <?php echo htmlspecialchars($empresa['correo']); ?></p>
-      <p><strong>Plan actual:</strong> <?php echo htmlspecialchars($empresa['plan']); ?></p>
+      <p><strong>Correo:</strong> <?php echo htmlspecialchars($usuario['correo']); ?></p>
+      <p><strong>Rol:</strong> <?php echo htmlspecialchars($usuario['rol']); ?></p>
 
       <button type="submit">Guardar cambios</button>
     </form>
