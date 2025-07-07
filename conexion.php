@@ -1,8 +1,8 @@
 <?php
-$host = '127.0.0.1:3307';
-$usuario = 'root';
-$contrasena = '131121';
-$basededatos = 'citastrp';
+$host = 'localhost';
+$usuario = 'u240362798_citas12';
+$contrasena = 'Citas1234567';
+$basededatos = 'u240362798_citas';
 
 $conn = new mysqli($host, $usuario, $contrasena, $basededatos);
 
@@ -11,6 +11,6 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Opcional: establecer el conjunto de caracteres
+// Establecer codificación
 $conn->set_charset("utf8mb4");
 ?>
