@@ -1,33 +1,49 @@
 <?php
 session_start();
-include 'conexion.php'; // Asegúrate de tener tu conexión aquí
+require_once 'conexion.php';
 
-$correo = $_POST['correo'];
-$pass = $_POST['pass'];
+// Mostrar errores para depuración
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$stmt = $conexion->prepare("SELECT * FROM usuarios WHERE correo = ?");
+// Obtener datos del formulario
+$correo = $_POST['correo'] ?? '';
+$pass = $_POST['pass'] ?? '';
+
+// Validar si existe el usuario
+$stmt = $conn->prepare("SELECT * FROM usuarios WHERE correo = ?");
 $stmt->bind_param("s", $correo);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 1) {
     $usuario = $result->fetch_assoc();
+
     if (password_verify($pass, $usuario['contraseña'])) {
-        $_SESSION['usuario'] = $usuario['correo'];
+        if ($usuario['rol'] === 'psicologo' && $usuario['activo'] == 0) {
+            echo "Tu cuenta aún no ha sido activada por el administrador.";
+            exit;
+        }
+
+        // Guardar sesión
+        $_SESSION['id'] = $usuario['id'];
+        $_SESSION['correo'] = $usuario['correo'];
         $_SESSION['rol'] = $usuario['rol'];
 
-        if ($usuario['rol'] === 'admin') {
-            header("Location: ADMIN/index.php");
-        } elseif ($usuario['rol'] === 'psicologo') {
-            if ($usuario['activo'] == 1) {
+        // Redireccionar según rol
+        switch ($usuario['rol']) {
+            case 'admin':
+                header("Location: ADMIN/index.php");
+                break;
+            case 'psicologo':
                 header("Location: psicologo/index_psicologo.php");
-            } else {
-                echo "Tu cuenta aún no ha sido activada por el administrador.";
-            }
-        } elseif ($usuario['rol'] === 'paciente') {
-            header("Location: paciente/index_paciente.php");
-        } else {
-            echo "Rol no válido.";
+                break;
+            case 'paciente':
+                header("Location: paciente/index_paciente.php");
+                break;
+            default:
+                echo "Rol desconocido.";
         }
     } else {
         echo "Contraseña incorrecta.";
@@ -35,4 +51,7 @@ if ($result->num_rows === 1) {
 } else {
     echo "Usuario no encontrado.";
 }
+
+$stmt->close();
+$conn->close();
 ?>
