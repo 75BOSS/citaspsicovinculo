@@ -34,7 +34,7 @@ $hay_tags = $tags_result && $tags_result->num_rows > 0;
         text: 'La charla se registró exitosamente.',
         confirmButtonText: 'Aceptar'
       }).then(() => {
-        window.location.href = 'index-psicologo.php';
+        window.location.href = 'index_psicologo.php';
       });
     });
   </script>
