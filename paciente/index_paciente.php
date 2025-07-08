@@ -59,7 +59,7 @@ $charlas = $conn->query($sql);
       <span style="margin-left:10px; font-size: 20px; color: #6b3fa0; font-weight: bold;">Psicovínculo</span>
     </div>
     <nav>
-      <a href="index_paciente.php">Inicio</a>
+      <a href="../index_paciente.php">Inicio</a>
       <a href="#">Mi cuenta</a>
       <a href="#">Charlas</a>
       <a href="login.php.php">Cerrar sesión</a>
