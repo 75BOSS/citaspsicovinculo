@@ -62,7 +62,7 @@ $charlas = $conn->query($sql);
       <a href="index_paciente.php">Inicio</a>
       <a href="#">Mi cuenta</a>
       <a href="#">Charlas</a>
-      <a href="logout.php">Cerrar sesión</a>
+      <a href="login.php.php">Cerrar sesión</a>
     </nav>
   </header>
 
