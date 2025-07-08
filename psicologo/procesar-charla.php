@@ -10,7 +10,7 @@ if (
   !isset($_POST['titulo'], $_POST['descripcion'], $_POST['id_auditorio'],
           $_POST['fecha'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['cupo_maximo'])
 ) {
-  header("Location: generar-charla.php?error=datos");
+  header("Location: generar_charla.php?error=datos");
   exit;
 }
 
@@ -42,7 +42,7 @@ $resultado = $verificar_stmt->get_result();
 if ($resultado->num_rows > 0) {
   $verificar_stmt->close();
   $conn->close();
-  header("Location: generar-charla.php?error=cruce");
+  header("Location: generar_charla.php?error=cruce");
   exit;
 }
 $verificar_stmt->close();
@@ -73,13 +73,13 @@ if ($insert_stmt->execute()) {
   $conn->close();
 
   // Redirigir con éxito
-  header("Location: generar-charla.php?success=1");
+  header("Location: generar_charla.php?success=1");
   exit;
 } else {
   $insert_stmt->close();
   $conn->close();
   // Error en la inserción
-  header("Location: generar-charla.php?error=sql");
+  header("Location: generar_charla.php?error=sql");
   exit;
 }
 ?>
