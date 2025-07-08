@@ -185,32 +185,38 @@
         <a href="login.php"><button type="button">Iniciar Sesión</button></a>
       </div>
 
-      <!-- Columna derecha (formulario) -->
-      <div class="contenedor__login-register">
-        <form action="registro.php" method="POST" class="formulario__register">
-          <h2>Registrarse</h2>
+<!-- Columna derecha (formulario) -->
+<div class="contenedor__login-register">
+  <form action="registro.php" method="POST" class="formulario__register">
+    <h2>Registrarse</h2>
 
-          <select name="rol" id="rol" required>
-            <option value="">Selecciona tu rol</option>
-            <option value="paciente">Paciente</option>
-            <option value="psicologo">Psicólogo</option>
-          </select>
+    <select name="rol" id="rol" required>
+      <option value="">Selecciona tu rol</option>
+      <option value="paciente">Paciente</option>
+      <option value="psicologo">Psicólogo</option>
+    </select>
 
-          <input type="text" name="nombre" placeholder="Nombre completo" required>
-          <input type="email" name="correo" placeholder="Correo Electrónico" required>
-          <input type="password" name="pass" placeholder="Contraseña" required>
-          <input type="text" name="cedula" placeholder="Cédula" required>
-          <input type="text" name="telefono" placeholder="Teléfono (opcional)">
+    <input type="text" name="nombre" placeholder="Nombre completo" required>
+    <input type="email" name="correo" placeholder="Correo Electrónico" required>
+    <input type="password" name="pass" placeholder="Contraseña" required>
 
-          <div id="codigo_estudiante_div">
-            <input type="text" name="codigo_estudiante" placeholder="Código de estudiante">
-          </div>
+    <!-- Cédula: solo 10 dígitos -->
+    <input type="text" name="cedula" placeholder="Cédula" required
+           pattern="\d{10}" maxlength="10" inputmode="numeric"
+           title="La cédula debe contener exactamente 10 números">
 
-          <button type="submit">Registrarse</button>
-        </form>
-      </div>
+    <!-- Teléfono: solo 10 dígitos -->
+    <input type="text" name="telefono" placeholder="Teléfono (opcional)"
+           pattern="\d{10}" maxlength="10" inputmode="numeric"
+           title="El teléfono debe contener exactamente 10 números">
+
+    <div id="codigo_estudiante_div">
+      <input type="text" name="codigo_estudiante" placeholder="Código de estudiante">
     </div>
-  </div>
+
+    <button type="submit">Registrarse</button>
+  </form>
+</div>
 
   <footer>
     &copy; 2025 Psicovínculo. Todos los derechos reservados.
