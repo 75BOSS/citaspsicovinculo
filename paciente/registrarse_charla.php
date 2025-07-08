@@ -1,42 +1,40 @@
 <?php
 session_start();
-include '../conexion.php';
+include 'conexion.php';
 
-// Verificar si hay sesión activa y si es un paciente
 if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'paciente') {
-  echo "Acceso denegado.";
-  exit;
+    echo "Acceso denegado.";
+    exit;
 }
 
-// Obtener el ID de la charla desde el parámetro GET
-$id_charla = $_GET['id_charla'] ?? null;
-
-if ($id_charla) {
-  // Verificar que la charla exista
-  $stmt = $conexion->prepare("SELECT * FROM charlas WHERE id = ?");
-  $stmt->bind_param("i", $id_charla);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  
-  if ($result->num_rows > 0) {
-    // La charla existe, registrar al paciente
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_charla'])) {
+    $id_charla = intval($_POST['id_charla']);
     $id_paciente = $_SESSION['id'];
-    
-    // Insertar en la tabla de reservas o similar
-    $stmt = $conexion->prepare("INSERT INTO reservas (id_usuario, id_charla) VALUES (?, ?)");
-    $stmt->bind_param("ii", $id_paciente, $id_charla);
-    
-    if ($stmt->execute()) {
-      // Redirigir con mensaje de éxito
-      header("Location: index_paciente.php?success=1");
+
+    // Verificar si ya está registrado
+    $verificar = $conn->prepare("SELECT id FROM reservas WHERE id_charla = ? AND id_paciente = ?");
+    $verificar->bind_param("ii", $id_charla, $id_paciente);
+    $verificar->execute();
+    $resultado = $verificar->get_result();
+
+    if ($resultado->num_rows === 0) {
+        // Insertar nueva reserva
+        $insertar = $conn->prepare("INSERT INTO reservas (id_charla, id_paciente, estado) VALUES (?, ?, 'confirmada')");
+        $insertar->bind_param("ii", $id_charla, $id_paciente);
+        if ($insertar->execute()) {
+            header("Location: index_paciente 2.php?registro=exito");
+            exit;
+        } else {
+            echo "Error al registrar: " . $insertar->error;
+        }
+        $insertar->close();
     } else {
-      // Error al insertar
-      echo "Hubo un error al registrar la charla.";
+        header("Location: index_paciente 2.php?registro=ya_registrado");
+        exit;
     }
-  } else {
-    echo "La charla no existe.";
-  }
+
+    $verificar->close();
 } else {
-  echo "No se ha proporcionado un ID de charla.";
+    echo "Solicitud inválida.";
 }
 ?>

@@ -91,10 +91,11 @@ $charlas = $conn->query($sql);
           </div>
 
           <!-- Botón Registrarme -->
-          <form action="registrarse_charla.php" method="GET">
+          <form method="POST" action="registrarse_charla.php">
             <input type="hidden" name="id_charla" value="<?= $charla['id'] ?>">
             <button type="submit">Registrarme</button>
           </form>
+
         </div>
       <?php endwhile; ?>
     </div>
