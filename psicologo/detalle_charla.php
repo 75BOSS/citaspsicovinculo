@@ -3,18 +3,24 @@ session_start();
 include '../conexion.php';
 
 
+// Verificar que el usuario está autenticado y es psicólogo
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
+    echo "Acceso no autorizado.";
+    exit();
+}
 
+$id_psicologo = $_SESSION['id'];
 
+// Validar parámetro
 if (!isset($_GET['id'])) {
     echo "Charla no especificada.";
     exit();
 }
 
 $id_charla = intval($_GET['id']);
-$id_psicologo = $_SESSION['usuario_id'];
 
-// Verifica que la charla le pertenezca al psicólogo
-$stmt = $conexion->prepare("SELECT * FROM charlas WHERE id = ? AND id_psicologo = ?");
+// Verificar que la charla le pertenezca al psicólogo
+$stmt = $conn->prepare("SELECT * FROM charlas WHERE id = ? AND id_psicologo = ?");
 $stmt->bind_param("ii", $id_charla, $id_psicologo);
 $stmt->execute();
 $resultado = $stmt->get_result();
@@ -27,6 +33,8 @@ if ($resultado->num_rows === 0) {
 $charla = $resultado->fetch_assoc();
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -38,7 +46,7 @@ $charla = $resultado->fetch_assoc();
 
 </head>
 <body>
-<?php include 'header-psicologo.php'; ?>
+<?php include 'header_psicologo.php'; ?>
 
 
   <main>
@@ -50,8 +58,8 @@ $charla = $resultado->fetch_assoc();
       <p><strong>Descripción:</strong> <?= nl2br(htmlspecialchars($charla['descripcion'] ?? 'No especificada')) ?></p>
 
       <div class="botones-acciones">
-        <a href="editar-charla.php?id=<?= $charla['id'] ?>" class="boton-editar">✏️ Editar</a>
-        <a href="cancelar-charla.php?id=<?= $charla['id'] ?>" class="boton-cancelar" onclick="return confirm('¿Estás seguro de cancelar esta charla?')">❌ Cancelar</a>
+        <a href="editar_charla.php?id=<?= $charla['id'] ?>" class="boton-editar">✏️ Editar</a>
+        <a href="cancelar_charla.php?id=<?= $charla['id'] ?>" class="boton-cancelar" onclick="return confirm('¿Estás seguro de cancelar esta charla?')">❌ Cancelar</a>
       </div>
     </section>
     
@@ -86,11 +94,6 @@ $charla = $resultado->fetch_assoc();
             <div class="social-icons">
                 <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-            </div>
-            <div class="footer-link">
-                <a href="servicios.html" target="_blank">
-                    Más información sobre nuestros servicios
-                </a>
             </div>
         </div>
     </div>

@@ -3,8 +3,15 @@ session_start();
 include '../conexion.php';
 
 
-$id_psicologo = $_SESSION['usuario_id'];
+// Verificar que el usuario esté autenticado y sea psicólogo
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
+    echo "Acceso no autorizado.";
+    exit();
+}
 
+$id_psicologo = $_SESSION['id'];
+
+// Validar si se proporcionó ID de charla
 if (!isset($_GET['id'])) {
     echo "Charla no especificada.";
     exit();
@@ -12,8 +19,8 @@ if (!isset($_GET['id'])) {
 
 $id_charla = intval($_GET['id']);
 
-// Verificar que la charla pertenece al psicólogo
-$stmt_verif = $conexion->prepare("SELECT titulo FROM charlas WHERE id = ? AND id_psicologo = ?");
+// Verificar que la charla pertenece al psicólogo autenticado
+$stmt_verif = $conn->prepare("SELECT titulo FROM charlas WHERE id = ? AND id_psicologo = ?");
 $stmt_verif->bind_param("ii", $id_charla, $id_psicologo);
 $stmt_verif->execute();
 $res_verif = $stmt_verif->get_result();
@@ -25,8 +32,8 @@ if ($res_verif->num_rows === 0) {
 
 $titulo_charla = $res_verif->fetch_assoc()['titulo'];
 
-// Obtener asistentes (reservas de pacientes)
-$stmt = $conexion->prepare("
+// Obtener asistentes
+$stmt = $conn->prepare("
     SELECT u.nombre, u.correo, r.fecha_reserva, r.estado
     FROM reservas r
     JOIN usuarios u ON r.id_paciente = u.id
@@ -36,6 +43,8 @@ $stmt->bind_param("i", $id_charla);
 $stmt->execute();
 $reservas = $stmt->get_result();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,7 +55,7 @@ $reservas = $stmt->get_result();
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-<?php include 'header-psicologo.php'; ?>
+<?php include 'header_psicologo.php'; ?>
 
 
 <main>
@@ -109,11 +118,6 @@ $reservas = $stmt->get_result();
             <div class="social-icons">
                 <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-            </div>
-            <div class="footer-link">
-                <a href="servicios.html" target="_blank">
-                    Más información sobre nuestros servicios
-                </a>
             </div>
         </div>
     </div>

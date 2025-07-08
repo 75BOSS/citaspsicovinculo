@@ -7,13 +7,13 @@
 
   <nav class="navbar">
     <ul class="nav-links">
-      <li><a href="index-psicologo.php">Inicio</a></li>
-      <li><a href="generar-charla.php">Programar Charla</a></li>
-      <li><a href="charlas-impartidas.php">Mis Charlas</a></li>
+      <li><a href="index_psicologo.php">Inicio</a></li>
+      <li><a href="generar_charla.php">Programar Charla</a></li>
+      <li><a href="charlas_impartidas.php">Mis Charlas</a></li>
     </ul>
     <div class="action-buttons">
       <a href="logout.php" class="btn-outline">Cerrar Sesión</a>
-      <a href="mi-cuenta.php" class="btn-filled">Mi Cuenta</a>
+      <a href="mi_cuenta.php" class="btn-filled">Mi Cuenta</a>
     </div>
   </nav>
 </header>

@@ -3,9 +3,15 @@ session_start();
 include '../conexion.php';
 
 
-$id_psicologo = $_SESSION['usuario_id'];
+// Verificar que el usuario esté autenticado y sea psicólogo
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
+  echo "<h2 style='color: red; text-align: center; margin-top: 50px;'>Acceso no autorizado.</h2>";
+  exit;
+}
 
-// Consultamos las charlas creadas por este psicólogo
+$id_psicologo = $_SESSION['id'];
+
+// Consultar charlas del psicólogo autenticado
 $query = "
   SELECT 
     c.id, c.titulo, c.fecha, c.hora_inicio, c.hora_fin, c.cupo_maximo,
@@ -16,11 +22,13 @@ $query = "
   ORDER BY c.fecha DESC
 ";
 
-$stmt = $conexion->prepare($query);
+$stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id_psicologo);
 $stmt->execute();
 $resultado = $stmt->get_result();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,7 +42,7 @@ $resultado = $stmt->get_result();
 </head>
 <body>
 
-<?php include 'header-psicologo.php'; ?>
+<?php include 'header_psicologo.php'; ?>
 
 
 
@@ -59,7 +67,7 @@ $resultado = $stmt->get_result();
           <td><?= $fila['auditorio'] ?></td>
           <td><?= $fila['cupo_maximo'] ?></td>
         <td style="min-width: 160px;">
-  <a href="ver-reservas.php?id=<?= $fila['id'] ?>">👥 Ver asistentes</a>
+  <a href="ver_reservas.php?id=<?= $fila['id'] ?>">👥 Ver asistentes</a>
 </td>
         </tr>
       <?php endwhile; ?>
