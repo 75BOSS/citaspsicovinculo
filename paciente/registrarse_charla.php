@@ -46,7 +46,7 @@
   <div class="contenedor">
     <h1 class="titulo">Registro exitoso</h1>
     <p class="mensaje">¡Te has registrado correctamente en la charla!</p>
-    <a href="index_paciente.php" class="boton">Volver a Charlas</a>
+<a href="/paciente/index_paciente.php" class="boton">Volver a Charlas</a>
   </div>
 </body>
 </html>
