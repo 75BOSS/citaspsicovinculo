@@ -2,84 +2,177 @@
 session_start();
 include '../conexion.php';
 
-// Solo psicólogos pueden acceder a esta página
-if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
-  echo "Acceso denegado.";
-  exit;
-}
+// Cargar auditorios
+$aud_result = $conn->query("SELECT id, nombre FROM auditorios");
+$hay_auditorios = $aud_result && $aud_result->num_rows > 0;
 
-// Obtener todas las charlas con nombre del psicólogo y auditorio
-$sql = "
-  SELECT 
-    c.id, c.titulo, c.fecha, c.hora_inicio, a.nombre AS auditorio,
-    u.nombre AS psicologo
-  FROM charlas c
-  JOIN auditorios a ON c.id_auditorio = a.id
-  JOIN usuarios u ON c.id_psicologo = u.id
-  WHERE c.id_psicologo = {$_SESSION['id']}
-  ORDER BY c.fecha ASC
-";
-$charlas = $conn->query($sql);
+// Cargar tags
+$tags_result = $conn->query("SELECT id, nombre FROM tags");
+$hay_tags = $tags_result && $tags_result->num_rows > 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Charlas Creadas</title>
-  <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f7f7f7; color: #333; }
-    header { background: white; padding: 20px 50px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
-    header img { height: 40px; }
-    header nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: bold; }
-    .contenedor { padding: 40px; }
-    .titulo { font-size: 28px; margin-bottom: 20px; color: #6b3fa0; }
-    .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .tarjeta { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    .tarjeta h3 { color: #6b3fa0; margin-top: 0; }
-    .tarjeta p { margin: 5px 0; }
-    .etiquetas { margin-top: 10px; }
-    .etiqueta { display: inline-block; background: #e0d7f5; color: #6b3fa0; padding: 4px 8px; margin: 3px; border-radius: 8px; font-size: 13px; }
-  </style>
+  <title>Generar Charla</title>
+    <link rel="stylesheet" href="estilos_psicologo/panel1-psicologo.css">
+<link rel="stylesheet" href="estilos_psicologo/index-psicologo.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-  <header>
-    <div style="display:flex; align-items:center;">
-      <img src="../imagen/logo.png" alt="Logo Psicovínculo">
-      <span style="margin-left:10px; font-size: 20px; color: #6b3fa0; font-weight: bold;">Psicovínculo</span>
-    </div>
-    <nav>
-      <a href="index_psicologo.php">Inicio</a>
-      <a href="#">Mi cuenta</a>
-      <a href="#">Charlas</a>
-      <a href="logout.php">Cerrar sesión</a>
-    </nav>
-  </header>
+<?php if (isset($_GET['success'])): ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Swal.fire({
+        icon: 'success',
+        title: '¡Charla creada!',
+        text: 'La charla se registró exitosamente.',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        window.location.href = 'index-psicologo.php';
+      });
+    });
+  </script>
+<?php elseif (isset($_GET['error'])): ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: `<?= $_GET['error'] === 'cruce' ? 'Ya hay una charla en ese horario y auditorio.' : 'Error al crear la charla.' ?>`,
+        confirmButtonText: 'Aceptar'
+      });
+    });
+  </script>
+<?php endif; ?>
 
-  <div class="contenedor">
-    <h1 class="titulo">Mis Charlas Creadas</h1>
-    <div class="tarjetas">
-      <?php while ($charla = $charlas->fetch_assoc()): ?>
-        <div class="tarjeta">
-          <h3><?= htmlspecialchars($charla['titulo']) ?></h3>
-          <p><strong>Fecha:</strong> <?= $charla['fecha'] ?> <?= substr($charla['hora_inicio'], 0, 5) ?></p>
-          <p><strong>Auditorio:</strong> <?= $charla['auditorio'] ?></p>
-          <p><strong>Psicólogo:</strong> <?= $charla['psicologo'] ?></p>
-          <div class="etiquetas">
-            <?php
-              $id_charla = $charla['id'];
-              $etiquetas = $conn->query("
-                SELECT t.nombre FROM charla_tags ct
-                JOIN tags t ON ct.id_tag = t.id
-                WHERE ct.id_charla = $id_charla
-              ");
-              while ($etiqueta = $etiquetas->fetch_assoc()):
-            ?>
-              <span class="etiqueta"><?= htmlspecialchars($etiqueta['nombre']) ?></span>
-            <?php endwhile; ?>
-          </div>
+
+<?php include 'header-psicologo.php'; ?>
+
+  <main>
+    <form action="procesar-charla.php" method="POST">
+<label>Título:</label>
+<input type="text" name="titulo" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="Solo se permiten letras y espacios.">
+
+<label>Descripción:</label>
+<textarea name="descripcion" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="Solo se permiten letras y espacios."></textarea>
+
+
+      <label>Auditorio:</label>
+      <select name="id_auditorio" required>
+        <option value="">Seleccione un auditorio</option>
+        <?php if ($hay_auditorios): ?>
+          <?php while ($a = $aud_result->fetch_assoc()): ?>
+            <option value="<?= $a['id'] ?>"><?= htmlspecialchars($a['nombre']) ?></option>
+          <?php endwhile; ?>
+        <?php else: ?>
+          <option disabled>No hay auditorios disponibles</option>
+        <?php endif; ?>
+      </select>
+
+      <label>Fecha:</label>
+      <input type="date" name="fecha" required min="<?= date('Y-m-d') ?>">
+
+      <label>Hora de inicio:</label>
+      <input type="time" name="hora_inicio" required>
+
+      <label>Hora de fin:</label>
+      <input type="time" name="hora_fin" required>
+
+      <label>Tags relacionados:</label>
+      <div class="tags-container">
+        <?php if ($hay_tags): ?>
+          <?php while ($tag = $tags_result->fetch_assoc()): ?>
+            <label>
+              <input type="checkbox" name="tags[]" value="<?= $tag['id'] ?>">
+              <?= htmlspecialchars($tag['nombre']) ?>
+            </label>
+          <?php endwhile; ?>
+        <?php else: ?>
+          <p style="color: red; font-weight: bold;">⚠️ No hay tags disponibles en el sistema.</p>
+        <?php endif; ?>
+      </div>
+<label>Cupo máximo:</label>
+<input type="text" name="cupo_maximo" pattern="^[0-9]{1,3}$" maxlength="3" title="Solo se permiten números del 0 al 999" required>
+
+
+
+      <button type="submit">Crear Charla</button>
+    </form>
+  </main>
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>INFORMACIÓN</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Av. Isabel La Católica N. 23-52 y Madrid.</p>
+            <p><i class="fas fa-phone"></i> <a href="tel:0960951729">0960951729</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:fabian.carsoia@ups.edu.co">fabian.carsoia@ups.edu.co</a></p>
         </div>
-      <?php endwhile; ?>
+        
+        <div class="footer-section">
+            <h3>ATENCIÓN</h3>
+            <p><i class="far fa-clock"></i> LUNES A VIERNES</p>
+            <p>9:00 AM - 17:00 PM</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>NUESTROS SERVICIOS</h3>
+            <ul class="services-list">
+                <li>Tratamientos de Ansiedad</li>
+                <li>Terapia para Depresión</li>
+                <li>Manejo del Estrés</li>
+                <li>Terapia para Crisis de Pánico</li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h3>REDES SOCIALES</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2025 Psicovínculo. Todos los derechos reservados.</p>
+    </div>
+
+</footer>
+
+  <!-- SweetAlert2 de respuesta -->
+  <?php if (isset($_GET['success'])): ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Charla creada!',
+        text: 'La charla fue registrada exitosamente.',
+        confirmButtonText: 'OK'
+      });
+    </script>
+  <?php elseif (isset($_GET['error'])): ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text:
+          <?php
+            switch ($_GET['error']) {
+              case 'cruce': echo "'Ya existe una charla en ese auditorio y horario.'"; break;
+              case 'datos': echo "'Faltan datos del formulario.'"; break;
+              case 'sql': default: echo "'Error al guardar la charla.'"; break;
+            }
+          ?>,
+        confirmButtonText: 'OK'
+      });
+    </script>
+  <?php endif; ?>
+
 </body>
 </html>
