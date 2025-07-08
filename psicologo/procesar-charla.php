@@ -34,21 +34,21 @@ $verificar_sql = "
       (hora_inicio >= ? AND hora_fin <= ?)
     )
 ";
-$verificar_stmt = $conexion->prepare($verificar_sql);
+$verificar_stmt = $conn->prepare($verificar_sql);
 $verificar_stmt->bind_param("isssssss", $id_auditorio, $fecha, $hora_fin, $hora_fin, $hora_inicio, $hora_inicio, $hora_inicio, $hora_fin);
 $verificar_stmt->execute();
 $resultado = $verificar_stmt->get_result();
 
 if ($resultado->num_rows > 0) {
   $verificar_stmt->close();
-  $conexion->close();
+  $conn->close();
   header("Location: generar-charla.php?error=cruce");
   exit;
 }
 $verificar_stmt->close();
 
 // Insertar la charla
-$insert_stmt = $conexion->prepare("
+$insert_stmt = $conn->prepare("
   INSERT INTO charlas (id_psicologo, titulo, descripcion, fecha, hora_inicio, hora_fin, id_auditorio, cupo_maximo, creada_en)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
 ");
@@ -60,7 +60,7 @@ if ($insert_stmt->execute()) {
 
   // Insertar tags (si hay)
   if (!empty($tags)) {
-    $tag_stmt = $conexion->prepare("INSERT INTO charla_tags (id_charla, id_tag) VALUES (?, ?)");
+    $tag_stmt = $conn->prepare("INSERT INTO charla_tags (id_charla, id_tag) VALUES (?, ?)");
     foreach ($tags as $tag_id) {
       $tag_id = intval($tag_id); // Sanitizar por seguridad
       $tag_stmt->bind_param("ii", $id_charla, $tag_id);
@@ -70,14 +70,14 @@ if ($insert_stmt->execute()) {
   }
 
   $insert_stmt->close();
-  $conexion->close();
+  $conn->close();
 
   // Redirigir con éxito
   header("Location: generar-charla.php?success=1");
   exit;
 } else {
   $insert_stmt->close();
-  $conexion->close();
+  $conn->close();
   // Error en la inserción
   header("Location: generar-charla.php?error=sql");
   exit;
