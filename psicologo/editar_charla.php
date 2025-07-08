@@ -2,10 +2,15 @@
 session_start();
 include '../conexion.php';
 
+// Verifica que el usuario está autenticado y es psicólogo
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
+    echo "Acceso no autorizado.";
+    exit();
+}
 
+$id_psicologo = $_SESSION['id'];
 
-$id_psicologo = $_SESSION['usuario_id'];
-
+// Validar que se haya pasado el ID de la charla
 if (!isset($_GET['id'])) {
     echo "Charla no especificada.";
     exit();
@@ -14,7 +19,7 @@ if (!isset($_GET['id'])) {
 $id_charla = intval($_GET['id']);
 
 // Verifica que la charla pertenezca al psicólogo
-$stmt = $conexion->prepare("SELECT * FROM charlas WHERE id = ? AND id_psicologo = ?");
+$stmt = $conn->prepare("SELECT * FROM charlas WHERE id = ? AND id_psicologo = ?");
 $stmt->bind_param("ii", $id_charla, $id_psicologo);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -27,8 +32,8 @@ if ($result->num_rows === 0) {
 $charla = $result->fetch_assoc();
 
 // Obtener auditorios disponibles
-$aud_result = $conexion->query("SELECT id, nombre FROM auditorios");
-$auditorios = $aud_result->fetch_all(MYSQLI_ASSOC);
+$aud_result = $conn->query("SELECT id, nombre FROM auditorios");
+$auditorios = $aud_result ? $aud_result->fetch_all(MYSQLI_ASSOC) : [];
 
 // Procesar actualización
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -40,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $descripcion = $_POST['descripcion'];
     $id_auditorio = $_POST['id_auditorio'];
 
-    $stmt_upd = $conexion->prepare("
+    $stmt_upd = $conn->prepare("
         UPDATE charlas SET 
         titulo = ?, fecha = ?, hora_inicio = ?, hora_fin = ?, 
         cupo_maximo = ?, descripcion = ?, id_auditorio = ?
@@ -53,10 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     );
     $stmt_upd->execute();
 
-    header("Location: detalle-charla.php?id=$id_charla");
+    header("Location: detalle_charla.php?id=$id_charla");
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -68,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<?php include 'header-psicologo.php'; ?>
+<?php include 'header_psicologo.php'; ?>
 
 <main>
   <form method="post">
@@ -102,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <button type="submit">💾 Guardar Cambios</button>
   </form>
 
-  <a href="detalle-charla.php?id=<?= $id_charla ?>" class="volver">← Volver</a>
+  <a href="detalle_charla.php?id=<?= $id_charla ?>" class="volver">← Volver</a>
 </main>
     <footer class="footer">
     <div class="footer-container">

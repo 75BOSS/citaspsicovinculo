@@ -2,21 +2,20 @@
 session_start();
 include '../conexion.php';
 
-
-// Simulación para pruebas sin login:
-$_SESSION['usuario_id'] = 8; // Asegúrate de que este ID exista
-
-$id_psicologo = $_SESSION['usuario_id'] ?? null;
-if (!$id_psicologo) {
-    die("ID de psicólogo no definido.");
+// Verificar que el usuario esté autenticado y sea psicólogo
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
+    die("Acceso no autorizado.");
 }
 
+$id_psicologo = $_SESSION['id'];
+
 // Obtener los datos actuales del usuario
-$stmt = $conexion->prepare("SELECT nombre, correo, foto, telefono FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT nombre, correo, foto, telefono FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id_psicologo);
 $stmt->execute();
 $usuario = $stmt->get_result()->fetch_assoc();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,12 +27,12 @@ $usuario = $stmt->get_result()->fetch_assoc();
 
 </head>
 <body>
-<?php include 'header-psicologo.php'; ?>
+<?php include 'header_psicologo.php'; ?>
 
 
 <main>
   <section class="formulario-edicion">
-    <form action="actualizar-perfil.php" method="POST">
+    <form action="actualizar_perfil.php" method="POST">
       <label>Nombre:</label>
       <input type="text" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>" required>
 

@@ -2,20 +2,19 @@
 session_start();
 include '../conexion.php';
 
-// Verificar sesión
+
 if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
-    echo "Acceso denegado.";
+    header("Location: ../login.php");
     exit;
 }
 
 $id_psicologo = $_SESSION['id'];
 
-// Obtener datos del psicólogo
-$stmt = $conn->prepare("SELECT nombre, correo, telefono FROM usuarios WHERE id = ?");
+$stmt = $conn->prepare("SELECT id, nombre, correo, telefono FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id_psicologo);
 $stmt->execute();
-$result = $stmt->get_result();
-$perfil = $result->fetch_assoc();
+$perfil = $stmt->get_result()->fetch_assoc();
+
 
 // Total de charlas
 $total_result = $conn->query("SELECT COUNT(*) as total FROM charlas WHERE id_psicologo = $id_psicologo");
@@ -29,7 +28,7 @@ $prox_charla = $prox_result->fetch_assoc();
 // Próximas charlas
 $proximas_charlas = $conn->query("SELECT * FROM charlas WHERE id_psicologo = $id_psicologo AND fecha >= CURDATE() ORDER BY fecha ASC LIMIT 5");
 
-// Charlas por mes
+// Charlas por mes del año actual
 $charlas_por_mes = array_fill(1, 12, 0);
 $sql_mes = "SELECT MONTH(fecha) as mes, COUNT(*) as cantidad 
             FROM charlas 
@@ -38,7 +37,8 @@ $sql_mes = "SELECT MONTH(fecha) as mes, COUNT(*) as cantidad
             GROUP BY MONTH(fecha)";
 $result_mes = $conn->query($sql_mes);
 while ($row = $result_mes->fetch_assoc()) {
-    $charlas_por_mes[(int)$row['mes']] = (int)$row['cantidad'];
+    $mes = (int)$row['mes'];
+    $charlas_por_mes[$mes] = (int)$row['cantidad'];
 }
 ?>
 
@@ -54,7 +54,7 @@ while ($row = $result_mes->fetch_assoc()) {
 
 </head>
 <body>
-<?php include 'header-psicologo.php'; ?>
+<?php include 'header_psicologo.php'; ?>
 
 
   <main class="panel-main">
@@ -146,7 +146,7 @@ while ($row = $result_mes->fetch_assoc()) {
           <p><strong>Fecha:</strong> <?= $charla['fecha'] ?></p>
           <p><strong>Hora:</strong> <?= substr($charla['hora_inicio'], 0, 5) ?></p>
           <p><strong>Cupo Máximo:</strong> <?= htmlspecialchars($charla['cupo_maximo']) ?></p>
-          <a class="ver-detalles" href="detalle-charla.php?id=<?= $charla['id'] ?>">Ver Detalles</a>
+          <a class="ver-detalles" href="detalle_charla.php?id=<?= $charla['id'] ?>">Ver Detalles</a>
         </div>
       <?php endwhile; ?>
     </section>

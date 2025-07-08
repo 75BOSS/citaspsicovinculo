@@ -2,10 +2,13 @@
 session_start();
 include '../conexion.php';
 
+// Verificar que el usuario esté autenticado y sea psicólogo
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'psicologo') {
+    echo "Acceso no autorizado.";
+    exit();
+}
 
-
-
-$id_usuario = $_SESSION['usuario_id'];
+$id_usuario = $_SESSION['id'];
 
 // Verificar si el formulario fue enviado correctamente
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssi", $nombre, $correo, $telefono, $foto, $id_usuario);
 
     if ($stmt->execute()) {
-        // Redirigir de vuelta al perfil o panel
-        header("Location: mi-cuenta.php?actualizado=1");
+        header("Location: mi_cuenta.php?actualizado=1");
         exit();
     } else {
         echo "Error al actualizar el perfil: " . $stmt->error;
