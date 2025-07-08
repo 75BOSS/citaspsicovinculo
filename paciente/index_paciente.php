@@ -1,23 +1,26 @@
 <?php
 session_start();
 include '../conexion.php';
-
 if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'paciente') {
-  echo "Acceso denegado.";
-  exit;
+    echo "Acceso denegado.";
+    exit;
 }
-
-// Consulta de charlas
-$sql = "
-  SELECT 
-    c.id, c.titulo, c.fecha, c.hora_inicio, a.nombre AS auditorio,
-    u.nombre AS psicologo
-  FROM charlas c
-  JOIN auditorios a ON c.id_auditorio = a.id
-  JOIN usuarios u ON c.id_psicologo = u.id
-  ORDER BY c.fecha ASC
-";
-$charlas = $conn->query($sql);
+// Procesar registro a charla
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_charla'])) {
+    $id_charla = intval($_POST['id_charla']);
+    $id_paciente = $_SESSION['id'];
+    $verificar = $conn->prepare("SELECT id FROM reservas WHERE id_charla = ? AND id_paciente = ?");
+    $verificar->bind_param("ii", $id_charla, $id_paciente);
+    $verificar->execute();
+    $resultado = $verificar->get_result();
+    if ($resultado->num_rows === 0) {
+        $insertar = $conn->prepare("INSERT INTO reservas (id_charla, id_paciente, estado) VALUES (?, ?, 'confirmada')");
+        $insertar->bind_param("ii", $id_charla, $id_paciente);
+        $insertar->execute();
+        $insertar->close();
+    }
+    $verificar->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -91,7 +94,7 @@ $charlas = $conn->query($sql);
           </div>
 
           <!-- Botón Registrarme -->
-          <form action="registrarse_charla.php" method="GET">
+          <form method="POST" method="GET">
             <input type="hidden" name="id_charla" value="<?= $charla['id'] ?>">
             <button type="submit">Registrarme</button>
           </form>
